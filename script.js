@@ -1,6 +1,6 @@
 // Frontend script to capture gyroscopic data, display it, and send it to the backend
 (async () => {
-    const backendUrl = "https://spandanbackend.onrender.com/gyro-data"; // Replace with your Render backend URL
+    const backendUrl = "https://spandanbackend.onrender.com"; // Replace with your Render backend URL
 
     // DOM elements for displaying gyroscopic data
     const alphaElement = document.getElementById("alpha");
