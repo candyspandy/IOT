@@ -5,70 +5,154 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gyroscope to Servo Control</title>
     <style>
+        /* CSS Reset and Variables */
+        :root {
+            --primary-gradient: linear-gradient(135deg, #6dd5ed, #2193b0);
+            --secondary-color: #ffeb3b;
+            --text-color: #fff;
+            --box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         /* General Body Styling */
         body {
-            font-family: 'Arial', sans-serif;
-            text-align: center;
-            padding: 20px;
-            margin: 0;
-            background: linear-gradient(135deg, #6dd5ed, #2193b0);
-            color: #fff;
-            height: 100vh;
+            font-family: 'Segoe UI', 'Arial', sans-serif;
+            min-height: 100vh;
+            background: var(--primary-gradient);
+            color: var(--text-color);
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        /* Container Styling */
+        .container {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
         }
 
         /* Heading Styling */
         h1 {
-            color: #fff;
-            font-size: 2.5rem;
-            margin-bottom: 10px;
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            margin-bottom: 1rem;
+            text-align: center;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(45deg, #fff, #e0e0e0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 700;
         }
 
         /* Paragraph Styling */
         p {
-            font-size: 1.2rem;
-            margin: 10px 0;
+            font-size: clamp(1rem, 2vw, 1.2rem);
+            margin: 1rem 0;
+            text-align: center;
         }
 
-        /* Gyroscopic Data Styling */
+        /* Gyroscopic Data Container */
         .gyro-data {
-            margin-top: 20px;
-            padding: 20px;
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 12px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            width: 300px;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: clamp(1rem, 3vw, 2rem);
+            margin: 20px auto;
+            width: min(90%, 350px);
+            box-shadow: var(--box-shadow);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: var(--transition);
         }
 
-        /* Individual Data Points */
+        .gyro-data:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Data Points Styling */
         .gyro-data p {
-            font-size: 1.1rem;
-            margin: 5px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 15px 0;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            font-size: clamp(0.9rem, 2vw, 1.1rem);
+        }
+
+        .gyro-data strong {
+            margin-right: 10px;
         }
 
         .gyro-data span {
+            font-family: 'Courier New', monospace;
+            color: var(--secondary-color);
             font-weight: bold;
-            color: #ffeb3b;
+            min-width: 60px;
+            text-align: right;
         }
 
-        /* Add hover effect to gyro-data container */
-        .gyro-data:hover {
-            transform: scale(1.05);
-            transition: transform 0.3s ease;
+        /* Animation for Data Updates */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .gyro-data span.updating {
+            animation: pulse 0.5s ease;
+        }
+
+        /* Media Queries */
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+
+            .gyro-data {
+                padding: 15px;
+            }
+
+            .gyro-data p {
+                padding: 8px;
+            }
+        }
+
+        /* Dark Mode Support */
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --primary-gradient: linear-gradient(135deg, #1e3c72, #2a5298);
+            }
+        }
+
+        /* Touch Device Optimizations */
+        @media (hover: none) {
+            .gyro-data:hover {
+                transform: none;
+            }
         }
     </style>
 </head>
 <body>
-    <h1>Gyroscope to Servo Control</h1>
-    <p>Move your phone to see the gyroscopic values and send them to the server.</p>
-    <div class="gyro-data">
-        <p><strong>Alpha (Z-axis):</strong> <span id="alpha">0</span></p>
-        <p><strong>Beta (X-axis):</strong> <span id="beta">0</span></p>
-        <p><strong>Gamma (Y-axis):</strong> <span id="gamma">0</span></p>
+    <div class="container">
+        <h1>Gyroscope to Servo Control</h1>
+        <p>Move your phone to see the gyroscopic values and send them to the server.</p>
+        <div class="gyro-data">
+            <p><strong>Alpha (Z-axis):</strong> <span id="alpha">0</span>°</p>
+            <p><strong>Beta (X-axis):</strong> <span id="beta">0</span>°</p>
+            <p><strong>Gamma (Y-axis):</strong> <span id="gamma">0</span>°</p>
+        </div>
     </div>
     <script src="script.js"></script>
 </body>
