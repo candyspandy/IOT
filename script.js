@@ -66,5 +66,5 @@
         }
     };
 
-    setInterval(fetchGyroData, 100); // Poll every 1 second
+    setInterval(fetchGyroData, 5); // Poll every 1 second
 })();
