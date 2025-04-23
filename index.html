@@ -5,18 +5,60 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gyroscope to Servo Control</title>
     <style>
+        /* General Body Styling */
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Arial', sans-serif;
             text-align: center;
             padding: 20px;
+            margin: 0;
+            background: linear-gradient(135deg, #6dd5ed, #2193b0);
+            color: #fff;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
         }
+
+        /* Heading Styling */
         h1 {
-            color: #333;
+            color: #fff;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
         }
+
+        /* Paragraph Styling */
+        p {
+            font-size: 1.2rem;
+            margin: 10px 0;
+        }
+
+        /* Gyroscopic Data Styling */
         .gyro-data {
             margin-top: 20px;
-            font-size: 18px;
-            color: #555;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 300px;
+        }
+
+        /* Individual Data Points */
+        .gyro-data p {
+            font-size: 1.1rem;
+            margin: 5px 0;
+        }
+
+        .gyro-data span {
+            font-weight: bold;
+            color: #ffeb3b;
+        }
+
+        /* Add hover effect to gyro-data container */
+        .gyro-data:hover {
+            transform: scale(1.05);
+            transition: transform 0.3s ease;
         }
     </style>
 </head>
